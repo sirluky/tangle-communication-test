@@ -10,6 +10,8 @@ export default function TangleDevice() {
   if ("tangleConnect" in window) {
     connectionType = "android";
 
+    connectors['android'].initEvents();
+
     console.info("Running in Android Bluetooth mode");
   }
   else if ("bluetooth" in window?.navigator) {

@@ -5,14 +5,27 @@ import './control.js'
 
 
 const tnglCode = `
-// defDevice($dev, 0x00, 0xff, 0x01, 15px);
-// defVariable($var1, #ff00ff);
-// addDrawing(0s, Infinity, animPlasmaShot(5s, $var1, 25%));
+defDevice($dev1, 0x00, 0xff, 0x0f, 15px);
 
-defDevice($dev, 0x00, 0xff, 0x01, 15px);
-
-addDrawing(-100s, 1000s, animRainbow(5s, 100%));
-
+addDrawing(0s, 2s, animFade(2s, #0000ff, #000000));
+interactive(0s, Infinity, $vystr, {
+  addDrawing(0s, 1s, animPlasmaShot(1s, #ff0000, 25%));
+});
+defVariable($brigh, genSmoothOut(genLastEventParam($brigh), 0.3s));
+addWindow(0s, Infinity, {
+  addDrawing(0s, Infinity, animRainbow(1s, 100%));
+}).modifyBrightness($brigh);
+addWindow(0s, Infinity, {
+  addDrawing(0s, Infinity, animFill(5s, $color));
+}).modifyBrightness($color);
+interactive(0s, Infinity, $vystb, {
+  defVariable($vystb, genLastEventParam($vystb));
+  addDrawing(0s, 1s, animPlasmaShot(1s, $vystb, 25%));
+});
+interactive(0s, Infinity, $vystd, {
+  defVariable($vystd, genLastEventParam($vystd));
+  addDrawing(0s, $vystd, animPlasmaShot($vystd, #00ff00, 25%));
+});
 `
 
 
